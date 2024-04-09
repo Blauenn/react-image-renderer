@@ -39,7 +39,7 @@ const App = () => {
 				<div className="flex flex-col gap-8 w-1/4">
 					<h1 className="text-2xl font-semibold">React image renderer</h1>
 					{/* Buttons */}
-					<div className="">
+					<div className="flex flex-row gap-4">
 						<div>
 							<input
 								type="file"
@@ -48,8 +48,20 @@ const App = () => {
 								style={{ display: "none" }}
 								id="fileInput"
 							/>
-							<label htmlFor="fileInput" className={`px-4 py-2 border border-opacity-50 rounded-xl shadow-sm hover:bg-pink-200 cursor-pointer ${hover_transition}`}>
+							<label htmlFor="fileInput" className={`px-4 py-2 border border-opacity-50 rounded-xl shadow-sm bg-white hover:bg-pink-200 cursor-pointer ${hover_transition}`}>
 								Upload an image
+							</label>
+						</div>
+						<div>
+							<input
+								type="file"
+								accept="image/*"
+								onChange={() => console.log("Exported")}
+								style={{ display: "none" }}
+								id="fileOutput"
+							/>
+							<label htmlFor="fileOutput" className={`px-4 py-2 border border-opacity-50 rounded-xl shadow-sm bg-white hover:bg-pink-200 cursor-pointer ${hover_transition}`}>
+								Export
 							</label>
 						</div>
 					</div>

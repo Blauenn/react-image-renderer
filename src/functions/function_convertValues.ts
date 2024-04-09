@@ -12,19 +12,22 @@ export const convert_body_model = (Model: string) => {
   // Sony Cameras //
   if (Model.startsWith("ILCE-")) {
     let model_noPrefix: string = "";
+    let model_noSuffix: string = "";
     let model_mark_number: string = "";
     if (Model.startsWith("ILCE-")) {
       model_noPrefix = Model.replace("ILCE-", "");
     }
 
-    const model_suffix = model_noPrefix.substring(-2);
-    if (model_suffix.startsWith("M")) {
+    const mIndex = model_noPrefix.lastIndexOf("M");
+    if (mIndex !== -1) {
       model_mark_number = convert_to_roman(
-        parseInt(model_suffix.replace("M", ""))
+        parseInt(model_noPrefix.substring(mIndex + 1))
       );
+      model_noSuffix = model_noPrefix.substring(0, mIndex);
+      converted_body_model = `A${model_noSuffix} ${model_mark_number}`;
+    } else {
+      converted_body_model = `A${model_noPrefix}`;
     }
-
-    converted_body_model = `A${model_noPrefix} ${model_mark_number}`;
   }
 
   return converted_body_model;

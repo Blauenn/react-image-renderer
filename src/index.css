@@ -1,5 +1,6 @@
 /* Font - Montserrat, M Plus 1 p, Nanum Gothic */
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nanum+Gothic&display=swap');
+
 /* Font - Sukhumvit */
 @font-face {
 	font-family: "Sukuhmvit";
@@ -12,12 +13,14 @@
 @tailwind utilities;
 
 :root {
-  font-family: "Montserrat", "Sukhumvit", "M Plus 1p", "Nanum Gothic", system-ui;
-  line-height: 1.5;
+	background: #f1f5f9;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+	font-family: "Montserrat", "Sukhumvit", "M Plus 1p", "Nanum Gothic", system-ui;
+	line-height: 1.5;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
 }
