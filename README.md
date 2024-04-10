@@ -1,30 +1,12 @@
-# React + TypeScript + Vite
+# A Simple image render
+(IDK what to call it tbh)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Give an image, it gets the EXIF, display them, and you can download them
 
-Currently, two official plugins are available:
+I make cosplay photography content. I take a lot of pictures, and I want to show them to my viewers.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Yes, I can just put the image in the video directly. But I feel like it'd be better if I show the settings and some other information.
 
-## Expanding the ESLint configuration
+Doing them in Photoshop is a tedious task, so I decided to waste those time making this.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+It's a new layout, it will be used soon
