@@ -6,6 +6,7 @@ import {
   convert_shutter_speed,
   convert_aperture,
   convert_date,
+  isZoom,
 } from "./function_convertValues";
 
 export const exif_parse = async (
@@ -38,7 +39,7 @@ export const exif_parse = async (
         converted_ISO: ISO.toString(),
         converted_shutter_speed: convert_shutter_speed(ExposureTime),
         converted_aperture: convert_aperture(ApertureValue),
-        converted_focal_length: `${FocalLength}mm`,
+        converted_focal_length: `${FocalLength}`,
         converted_date: convert_date(DateTimeOriginal),
       };
 
@@ -46,6 +47,7 @@ export const exif_parse = async (
         body_make: converted_values.converted_body_make,
         body_model: converted_values.converted_body_model,
         lens_make_model: converted_values.converted_lens_make_model,
+        lens_isZoom: isZoom(LensInfo),
       });
 
       setCameraSettings({

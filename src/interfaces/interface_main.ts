@@ -2,6 +2,7 @@ interface CameraInformation {
   body_make: string;
   body_model: string;
   lens_make_model: string;
+  lens_isZoom: boolean;
 }
 
 interface CameraSettings {
@@ -13,6 +14,7 @@ interface CameraSettings {
 }
 
 interface ContactInfo {
+  photographer: string;
   facebook: string;
   facebook_2: string;
   instagram: string;
@@ -22,4 +24,10 @@ interface ContactInfo {
 interface AlbumInfo {
   name: string;
   date: string;
+}
+
+interface OtherInfo {
+  unedited: boolean;
+  lens_highlight: boolean;
+  high_quality: boolean;
 }

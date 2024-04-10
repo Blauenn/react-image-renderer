@@ -24,3 +24,8 @@
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
 }
+
+.wall-background {
+	background: rgba(255, 255, 255, 0.5) url("/assets/previews/background.jpg");
+	background-position: center;
+}

@@ -9,3 +9,15 @@ export const fieldChanges = (
     [key]: value,
   }));
 };
+
+export const toggleCheckbox = (
+  key: keyof OtherInfo,
+  event: React.ChangeEvent<HTMLInputElement>,
+  setOtherInfo: React.Dispatch<React.SetStateAction<OtherInfo>>
+) => {
+  const isChecked = event.target.checked;
+  setOtherInfo((prevOtherInfo) => ({
+    ...prevOtherInfo,
+    [key]: isChecked,
+  }));
+};

@@ -1,15 +1,20 @@
 import { convert_to_roman } from "./function_numbers";
 
 export const convert_body_make = (Make: string) => {
-  const converted_body_make =
+  let converted_body_make =
     Make.charAt(0).toUpperCase() + Make.slice(1).toLowerCase();
+
+  // Nikon cameras //
+  if (converted_body_make.startsWith("Nikon corporation")) {
+    converted_body_make = converted_body_make.replace(" corporation", "");
+  }
 
   return converted_body_make;
 };
 
 export const convert_body_model = (Model: string) => {
   let converted_body_model: string = Model;
-  // Sony Cameras //
+  // Sony cameras //
   if (Model.startsWith("ILCE-")) {
     let model_noPrefix: string = "";
     let model_noSuffix: string = "";
@@ -30,6 +35,11 @@ export const convert_body_model = (Model: string) => {
     }
   }
 
+  // Nikon cameras //
+  if (Model.startsWith("NIKON ")) {
+    converted_body_model = Model.replace("NIKON ", "");
+  }
+
   return converted_body_model;
 };
 
@@ -39,41 +49,39 @@ export const convert_lens_make_model = (
 ) => {
   let converted_lens_model: string = LensModel;
   // Sony lenses //
-  if (LensModel.startsWith("FE ") || LensModel.startsWith("E ")) {
-    // Focal length //
-    let focal_length: string = "";
-    if (LensInfo[0] != LensInfo[1]) {
-      focal_length = `${LensInfo[0]}-${LensInfo[1]}mm`;
-    } else {
-      focal_length = `${LensInfo[0]}mm`;
-    }
-    // Aperture //
-    let aperture: string = "";
-    if (LensInfo[2] != LensInfo[3]) {
-      aperture = `f/${LensInfo[2]}-${LensInfo[3]}`;
-    } else {
-      aperture = `f/${LensInfo[2]}`;
-    }
-
-    // Is in G or GM lineup?
-    let isGM: boolean = false;
-    let isG: boolean = false;
-    if (LensModel.endsWith("GM")) {
-      isGM = true;
-    } else if (LensModel.endsWith("G")) {
-      isG = true;
-    }
-
-    let suffix: string = "";
-    if (isGM) {
-      suffix = " G Master";
-    } else if (isG) {
-      suffix = " G";
-    }
-
-    // No space, it comes with the suffix //
-    converted_lens_model = `${focal_length} ${aperture}${suffix}`;
+  // Focal length //
+  let focal_length: string = "";
+  if (LensInfo[0] != LensInfo[1]) {
+    focal_length = `${LensInfo[0]}-${LensInfo[1]}mm`;
+  } else {
+    focal_length = `${LensInfo[0]}mm`;
   }
+  // Aperture //
+  let aperture: string = "";
+  if (LensInfo[2] != LensInfo[3]) {
+    aperture = `f/${LensInfo[2]}-${LensInfo[3]}`;
+  } else {
+    aperture = `f/${LensInfo[2]}`;
+  }
+
+  // Is in G or GM lineup?
+  let isGM: boolean = false;
+  let isG: boolean = false;
+  if (LensModel.endsWith("GM")) {
+    isGM = true;
+  } else if (LensModel.endsWith("G")) {
+    isG = true;
+  }
+
+  let suffix: string = "";
+  if (isGM) {
+    suffix = " G Master";
+  } else if (isG) {
+    suffix = " G";
+  }
+
+  // No space, it comes with the suffix //
+  converted_lens_model = `${focal_length} ${aperture}${suffix}`;
 
   return converted_lens_model;
 };
@@ -99,4 +107,13 @@ export const convert_date = (DateTimeOriginal: Date) => {
   const year = DateTimeOriginal.getFullYear();
 
   return `${day}.${month}.${year}`;
+};
+
+// Check if the lens is a zoom or not //
+export const isZoom = (LensInfo: [number, number, number, number]) => {
+  if (LensInfo[0] != LensInfo[1]) {
+    return true;
+  } else {
+    return false;
+  }
 };
