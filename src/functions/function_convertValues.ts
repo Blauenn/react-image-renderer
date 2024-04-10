@@ -8,11 +8,19 @@ export const convert_body_make = (Make: string) => {
   if (converted_body_make.startsWith("Nikon corporation")) {
     converted_body_make = converted_body_make.replace(" corporation", "");
   }
+  // Leica cameras //
+  else if (converted_body_make.startsWith("Leica camera ag")) {
+    converted_body_make = converted_body_make.replace(" camera ag", "");
+  }
+  // Olympus cameras //
+  else if (converted_body_make.startsWith("Olympus corporation")) {
+    converted_body_make = converted_body_make.replace(" corporation", "");
+  }
 
   return converted_body_make;
 };
 
-export const convert_body_model = (Model: string) => {
+export const convert_body_model = (Make: string, Model: string) => {
   let converted_body_model: string = Model;
   // Sony cameras //
   if (Model.startsWith("ILCE-")) {
@@ -34,10 +42,22 @@ export const convert_body_model = (Model: string) => {
       converted_body_model = `A${model_noPrefix}`;
     }
   }
-
+  // Canon cameras //
+  else if (Model.startsWith("Canon ")) {
+    converted_body_model = Model.replace("Canon ", "");
+    converted_body_model = converted_body_model.replace("Mark ", "");
+  }
   // Nikon cameras //
-  if (Model.startsWith("NIKON ")) {
+  else if (Model.startsWith("NIKON ")) {
     converted_body_model = Model.replace("NIKON ", "");
+  }
+  // Leica cameras //
+  else if (Model.startsWith("LEICA ")) {
+    converted_body_model = Model.replace("LEICA ", "");
+  }
+  // Olympus cameras //
+  else if (Make.toLowerCase().startsWith("olympus")) {
+    converted_body_model = Model.replace("Mark", " ");
   }
 
   return converted_body_model;
@@ -46,44 +66,100 @@ export const convert_body_model = (Model: string) => {
 export const convert_lens_make_model = (
   LensModel: string,
   LensInfo: [number, number, number, number]
-) => {
-  let converted_lens_model: string = LensModel;
+): string => {
+  const [minFocalLength, maxFocalLength, minAperture, maxAperture] = LensInfo;
+
+  let convertedLensModel: string = LensModel;
+
   // Sony lenses //
-  // Focal length //
-  let focal_length: string = "";
-  if (LensInfo[0] != LensInfo[1]) {
-    focal_length = `${LensInfo[0]}-${LensInfo[1]}mm`;
-  } else {
-    focal_length = `${LensInfo[0]}mm`;
+  if (LensModel.startsWith("FE ") || LensModel.startsWith("E ")) {
+    const focalLength =
+      minFocalLength !== maxFocalLength
+        ? `${minFocalLength}-${maxFocalLength}mm`
+        : `${minFocalLength}mm`;
+    const aperture =
+      minAperture !== maxAperture
+        ? `f/${minAperture}-${maxAperture}`
+        : `f/${minAperture}`;
+
+    let prefix: string = "";
+    let suffix: string = "";
+
+    if (LensModel.endsWith("GM")) {
+      suffix = "G Master";
+    } else if (LensModel.endsWith("G")) {
+      suffix = "G";
+    } else if (LensModel.endsWith(" ZA")) {
+      prefix = "Zeiss";
+    }
+
+    convertedLensModel = `${prefix} ${focalLength} ${aperture} ${suffix}`;
   }
-  // Aperture //
-  let aperture: string = "";
-  if (LensInfo[2] != LensInfo[3]) {
-    aperture = `f/${LensInfo[2]}-${LensInfo[3]}`;
-  } else {
-    aperture = `f/${LensInfo[2]}`;
+  // Canon lenses //
+  else if (LensModel.startsWith("EF") || LensModel.startsWith("RF")) {
+    const focalLength =
+      minFocalLength !== maxFocalLength
+        ? `${minFocalLength}-${maxFocalLength}mm`
+        : `${minFocalLength}mm`;
+    const aperture =
+      minAperture !== maxAperture
+        ? `f/${minAperture}-${maxAperture}`
+        : `f/${minAperture}`;
+
+    const suffix = LensModel.includes(" L ") ? "L" : "";
+
+    convertedLensModel = `${focalLength} ${aperture} ${suffix}`;
+  }
+  // Nikon lenses //
+  else if (LensModel.startsWith("NIKKOR Z ")) {
+    const focalLength =
+      minFocalLength !== maxFocalLength
+        ? `${minFocalLength}-${maxFocalLength}mm`
+        : `${minFocalLength}mm`;
+    const aperture =
+      minAperture !== maxAperture
+        ? `f/${minAperture}-${maxAperture}`
+        : `f/${minAperture}`;
+
+    const suffix = LensModel.endsWith(" S") ? "S" : "";
+
+    convertedLensModel = `${focalLength} ${aperture} ${suffix}`;
+  }
+  // Leica lenses //
+  else if (LensModel.startsWith("APO") || LensModel.startsWith("Summi")) {
+    const focalLength =
+      minFocalLength !== maxFocalLength
+        ? `${minFocalLength}-${maxFocalLength}mm`
+        : `${minFocalLength}mm`;
+    const aperture =
+      minAperture !== maxAperture
+        ? `f/${minAperture}-${maxAperture}`
+        : `f/${minAperture}`;
+
+    let prefix: string = "";
+    if (LensModel.toLowerCase().includes("summicron")) {
+      prefix = "Summicron";
+    } else if (LensModel.toLowerCase().includes("summilux")) {
+      prefix = "Summilux";
+    }
+
+    convertedLensModel = `${prefix} ${focalLength} ${aperture}`;
+  }
+  // Olympus lenses //
+  else if (LensModel.startsWith("OLYMPUS")) {
+    const focalLength =
+      minFocalLength !== maxFocalLength
+        ? `${minFocalLength}-${maxFocalLength}mm`
+        : `${minFocalLength}mm`;
+    const aperture =
+      minAperture !== maxAperture
+        ? `f/${minAperture}-${maxAperture}`
+        : `f/${minAperture}`;
+
+    convertedLensModel = `${focalLength} ${aperture}`;
   }
 
-  // Is in G or GM lineup?
-  let isGM: boolean = false;
-  let isG: boolean = false;
-  if (LensModel.endsWith("GM")) {
-    isGM = true;
-  } else if (LensModel.endsWith("G")) {
-    isG = true;
-  }
-
-  let suffix: string = "";
-  if (isGM) {
-    suffix = " G Master";
-  } else if (isG) {
-    suffix = " G";
-  }
-
-  // No space, it comes with the suffix //
-  converted_lens_model = `${focal_length} ${aperture}${suffix}`;
-
-  return converted_lens_model;
+  return convertedLensModel;
 };
 
 export const convert_shutter_speed = (ExposureTime: number) => {

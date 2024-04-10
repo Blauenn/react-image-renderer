@@ -4,7 +4,6 @@ import {
   convert_body_model,
   convert_lens_make_model,
   convert_shutter_speed,
-  convert_aperture,
   convert_date,
   isZoom,
 } from "./function_convertValues";
@@ -26,19 +25,21 @@ export const exif_parse = async (
         ExposureMode,
         ISO,
         ExposureTime,
-        ApertureValue,
+        FNumber,
         FocalLength,
         DateTimeOriginal,
       } = exifData;
 
+      console.log(exifData);
+
       const converted_values = {
         converted_body_make: convert_body_make(Make),
-        converted_body_model: convert_body_model(Model),
+        converted_body_model: convert_body_model(Make, Model),
         converted_lens_make_model: convert_lens_make_model(LensModel, LensInfo),
         converted_mode: ExposureMode,
         converted_ISO: ISO.toString(),
         converted_shutter_speed: convert_shutter_speed(ExposureTime),
-        converted_aperture: convert_aperture(ApertureValue),
+        converted_aperture: FNumber,
         converted_focal_length: `${FocalLength}`,
         converted_date: convert_date(DateTimeOriginal),
       };
