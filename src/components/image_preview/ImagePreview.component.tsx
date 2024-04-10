@@ -4,6 +4,7 @@ import { photographers_to_color } from "../../constants/styles/colors/constant_p
 import ImagePreview_lens from "./ImagePreview_lens.component";
 
 interface CurrentComponentProp {
+	isPreview?: boolean;
 	imageSource: string;
 	imageDimensions: [number, number];
 	cameraInformation: CameraInformation;
@@ -14,7 +15,7 @@ interface CurrentComponentProp {
 }
 
 const ImagePreview = (props: CurrentComponentProp) => {
-	const { imageSource, imageDimensions, cameraInformation, cameraSettings, contactInfo, albumInfo, otherInfo } = props;
+	const { isPreview, imageSource, imageDimensions, cameraInformation, cameraSettings, contactInfo, albumInfo, otherInfo } = props;
 
 	useEffect(() => {
 	}, [imageDimensions, cameraInformation]);
@@ -71,14 +72,13 @@ const ImagePreview = (props: CurrentComponentProp) => {
 									{contactInfo.facebook != "" ? (
 										<div className="relative flex flex-row items-center gap-8">
 											<img src="/assets/facebook.png" className="w-[60px] h-[60px]" />
-											{/* -4 y offset for the exported image */}
-											<h1 className="relative -top-4 text-[40px] opacity-50 font-semibold">{contactInfo.facebook}</h1>
+											<h1 className={`relative ${isPreview ?? "-top-4"} text-[40px] opacity-50 font-semibold`}>{contactInfo.facebook}</h1>
 										</div>
 									) : null}
 									{contactInfo.instagram != "" ? (
 										<div className="relative flex flex-row items-center gap-8">
 											<img src="/assets/instagram.png" className="w-[60px] h-[60px]" />
-											<h1 className="relative -top-4 text-[40px] opacity-50 font-semibold">{contactInfo.instagram}</h1>
+											<h1 className={`relative ${isPreview ?? "-top-4"} text-[40px] opacity-50 font-semibold`}>{contactInfo.instagram}</h1>
 										</div>
 									) : null}
 								</div>
@@ -87,13 +87,13 @@ const ImagePreview = (props: CurrentComponentProp) => {
 									{contactInfo.facebook_2 != "" ? (
 										<div className="relative flex flex-row items-center gap-8">
 											<img src="/assets/facebook.png" className="w-[60px] h-[60px]" />
-											<h1 className="relative -top-4 text-[40px] opacity-50 font-semibold">{contactInfo.facebook_2}</h1>
+											<h1 className={`relative ${isPreview ?? "-top-4"} text-[40px] opacity-50 font-semibold`}>{contactInfo.facebook_2}</h1>
 										</div>
 									) : null}
 									{contactInfo.instagram_2 != "" ? (
 										<div className="relative flex flex-row items-center gap-8">
 											<img src="/assets/instagram.png" className="w-[60px] h-[60px]" />
-											<h1 className="relative -top-4 text-[40px] opacity-50 font-semibold">{contactInfo.instagram_2}</h1>
+											<h1 className={`relative ${isPreview ?? "-top-4"} text-[40px] opacity-50 font-semibold`}>{contactInfo.instagram_2}</h1>
 										</div>
 									) : null}
 								</div>

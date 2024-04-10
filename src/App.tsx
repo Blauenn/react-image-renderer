@@ -90,7 +90,7 @@ const App = () => {
 					<>
 						{/* The preview on the web */}
 						<div className="scale-[0.35] origin-top-left">
-							<ImagePreview imageSource={imageSource} imageDimensions={imageDimensions} cameraInformation={cameraInformation} cameraSettings={cameraSettings} contactInfo={contactInfo} albumInfo={albumInfo} otherInfo={otherInfo} />
+							<ImagePreview isPreview imageSource={imageSource} imageDimensions={imageDimensions} cameraInformation={cameraInformation} cameraSettings={cameraSettings} contactInfo={contactInfo} albumInfo={albumInfo} otherInfo={otherInfo} />
 						</div>
 						{/* The canvas that's being rendered and downloaded */}
 						{/* Doing this will also remove the gray margin on the right and bottom */}
