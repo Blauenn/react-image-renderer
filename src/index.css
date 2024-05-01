@@ -3,8 +3,8 @@
 
 /* Font - Sukhumvit */
 @font-face {
-	font-family: "Sukuhmvit";
-	src: local("Sukuhmvit"), url("./fonts/Sukhumvit/SukhumvitSet-Text.ttf") format("truetype");
+	font-family: "Sukhumvit";
+	src: local("Sukhumvit"), url("./fonts/Sukhumvit/SukhumvitSet-SemiBold.ttf") format("truetype");
 	font-weight: normal
 }
 

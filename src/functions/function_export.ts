@@ -3,7 +3,8 @@ import html2canvas from "html2canvas";
 
 export const export_preview_image = (
   imagePreviewRef: any,
-  high_quality: boolean
+  high_quality: boolean,
+  file_name: string
 ) => {
   if (imagePreviewRef.current) {
     html2canvas(imagePreviewRef.current, { width: 3840, height: 2160 }).then(
@@ -14,7 +15,7 @@ export const export_preview_image = (
               canvas.toBlob(
                 (blob) => {
                   if (blob) {
-                    saveAs(blob, "imagePreview.jpg");
+                    saveAs(blob, file_name);
                   }
                 },
                 "image/jpeg",

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 // Constants //
-import { photographers_to_color } from "../../constants/styles/colors/constant_photographerColors";
+import { photographers_to_shadow_color, photographers_to_text_color } from "../../constants/styles/colors/constant_photographerColors";
 import ImagePreview_lens from "./ImagePreview_lens.component";
 
 interface CurrentComponentProp {
@@ -21,7 +21,8 @@ const ImagePreview = (props: CurrentComponentProp) => {
 	}, [imageDimensions, cameraInformation]);
 
 
-	const photographerStyle = photographers_to_color[contactInfo.photographer] || "opacity-50";
+	const photographer_text_style = photographers_to_text_color[contactInfo.photographer] || "opacity-50";
+	const photographer_shadow_style = photographers_to_shadow_color[contactInfo.photographer] || "";
 
 	return (
 		<div className="relative inline-block" >
@@ -32,8 +33,10 @@ const ImagePreview = (props: CurrentComponentProp) => {
 						<img src={imageSource}
 							className={`${imageDimensions[0] / imageDimensions[1] > 16 / 9 ? "w-4/5 h-auto"
 								: imageDimensions[0] / imageDimensions[1] > 3 / 2 ? "w-[2600px] h-auto"
-									: "w-auto h-full"
-								} shadow-md`} />
+									: imageDimensions[0] / imageDimensions[1] > 4 / 3 ? "w-[2600px] h-auto"
+										: "w-auto h-full"
+								} shadow-md ${photographer_shadow_style}`} />
+								{/* Drop shadows are some how invisible in the render | FIX IT bro */}
 					</div>
 					{/* Texts */}
 					<div className="absolute top-0 left-0 flex flex-col justify-between h-full">
@@ -41,7 +44,7 @@ const ImagePreview = (props: CurrentComponentProp) => {
 						<div className="flex flex-col gap-4">
 							{/* Photographer */}
 							{contactInfo.photographer != "" ? (
-								<h1 className={`text-[40px] ${photographerStyle}`}>Taken by {contactInfo.photographer}</h1>
+								<h1 className={`text-[40px] ${photographer_text_style}`}>Taken by {contactInfo.photographer}</h1>
 							) : (
 								<h1 className="text-[40px] opacity-50">Taken by Blauen</h1>
 							)}

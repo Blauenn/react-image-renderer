@@ -101,12 +101,25 @@ export const convert_lens_make_model = (
       minFocalLength !== maxFocalLength
         ? `${minFocalLength}-${maxFocalLength}mm`
         : `${minFocalLength}mm`;
-    const aperture =
-      minAperture !== maxAperture
-        ? `f/${minAperture}-${maxAperture}`
-        : `f/${minAperture}`;
+    let aperture;
 
-    const suffix = LensModel.includes(" L ") ? "L" : "";
+    // Get the aperture value from LensModel string //
+    const indexOfFSlash = LensModel.indexOf("f/");
+    if (indexOfFSlash !== -1) {
+      const indexOfSpace = LensModel.indexOf(" ", indexOfFSlash);
+
+      if (indexOfSpace !== -1) {
+        const lettersAfterFSlash = LensModel.substring(
+          indexOfFSlash + 2,
+          indexOfSpace
+        );
+        aperture = `f/${lettersAfterFSlash}`;
+      }
+    }
+
+    let suffix;
+    suffix = LensModel.includes("L") ? "L" : "";
+    suffix = LensModel.includes("STM") ? "STM" : "";
 
     convertedLensModel = `${focalLength} ${aperture} ${suffix}`;
   }
@@ -157,6 +170,28 @@ export const convert_lens_make_model = (
         : `f/${minAperture}`;
 
     convertedLensModel = `${focalLength} ${aperture}`;
+  }
+  // Sigma lenses //
+  else if (
+    LensModel.includes("DG") ||
+    LensModel.includes("DN") ||
+    LensModel.includes("HSM")
+  ) {
+    const focalLength =
+      minFocalLength !== maxFocalLength
+        ? `${minFocalLength}-${maxFocalLength}mm`
+        : `${minFocalLength}mm`;
+    const aperture =
+      minAperture !== maxAperture
+        ? `f/${minAperture}-${maxAperture}`
+        : `f/${minAperture}`;
+
+    let suffix;
+    if (LensModel.includes("Art")) {
+      suffix = "Art";
+    }
+
+    convertedLensModel = `Sigma ${focalLength} ${aperture} ${suffix}`;
   }
 
   return convertedLensModel;

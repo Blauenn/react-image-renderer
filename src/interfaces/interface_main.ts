@@ -27,6 +27,7 @@ interface AlbumInfo {
 }
 
 interface OtherInfo {
+  file_name: string;
   unedited: boolean;
   lens_highlight: boolean;
   high_quality: boolean;

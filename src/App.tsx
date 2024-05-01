@@ -42,6 +42,7 @@ const App = () => {
 		date: ""
 	});
 	const [otherInfo, setOtherInfo] = useState<OtherInfo>({
+		file_name: "",
 		unedited: false,
 		lens_highlight: false,
 		high_quality: false,
@@ -51,7 +52,6 @@ const App = () => {
 		<div className="m-8">
 			<div className="flex flex-row gap-16">
 				<div className="flex flex-col w-1/4 gap-8">
-					<h1 className="text-2xl font-semibold">React image renderer</h1>
 					{/* Buttons */}
 					<div className="flex flex-row gap-4">
 						<div>
@@ -79,7 +79,7 @@ const App = () => {
 							<SidePreview_ContactInfo contactInfo={contactInfo} setContactInfo={setContactInfo} />
 							{/* Other settings */}
 							<SidePreview_Others contactInfo={contactInfo} setContactInfo={setContactInfo} otherInfo={otherInfo} setOtherInfo={setOtherInfo} />
-							<button onClick={() => { export_preview_image(imagePreviewRef, otherInfo.high_quality); }} className={`px-4 py-2 border border-opacity-50 rounded-xl shadow-sm bg-white hover:bg-pink-200 cursor-pointer ${hover_transition}`}>
+							<button onClick={() => { export_preview_image(imagePreviewRef, otherInfo.high_quality, otherInfo.file_name); }} className={`px-4 py-2 border border-opacity-50 rounded-xl shadow-sm bg-white hover:bg-pink-200 cursor-pointer ${hover_transition}`}>
 								Download Image Preview
 							</button>
 						</div>
