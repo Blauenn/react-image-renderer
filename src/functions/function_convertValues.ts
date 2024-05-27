@@ -96,7 +96,7 @@ export const convert_lens_make_model = (
     convertedLensModel = `${prefix} ${focalLength} ${aperture} ${suffix}`;
   }
   // Canon lenses //
-  else if (LensModel.startsWith("EF") || LensModel.startsWith("RF")) {
+  else if (LensModel.includes("EF") || LensModel.includes("RF")) {
     const focalLength =
       minFocalLength !== maxFocalLength
         ? `${minFocalLength}-${maxFocalLength}mm`
@@ -181,10 +181,21 @@ export const convert_lens_make_model = (
       minFocalLength !== maxFocalLength
         ? `${minFocalLength}-${maxFocalLength}mm`
         : `${minFocalLength}mm`;
-    const aperture =
-      minAperture !== maxAperture
-        ? `f/${minAperture}-${maxAperture}`
-        : `f/${minAperture}`;
+
+    let aperture;
+    // Get the aperture value from LensModel string //
+    const indexOfFSlash = LensModel.indexOf("F");
+    if (indexOfFSlash !== -1) {
+      const indexOfSpace = LensModel.indexOf(" ", indexOfFSlash);
+
+      if (indexOfSpace !== -1) {
+        const lettersAfterFSlash = LensModel.substring(
+          indexOfFSlash + 1,
+          indexOfSpace
+        );
+        aperture = `f/${lettersAfterFSlash}`;
+      }
+    }
 
     let suffix;
     if (LensModel.includes("Art")) {
