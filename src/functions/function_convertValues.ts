@@ -37,9 +37,9 @@ export const convert_body_model = (Make: string, Model: string) => {
         parseInt(model_noPrefix.substring(mIndex + 1))
       );
       model_noSuffix = model_noPrefix.substring(0, mIndex);
-      converted_body_model = `A${model_noSuffix} ${model_mark_number}`;
+      converted_body_model = `a${model_noSuffix} ${model_mark_number}`;
     } else {
-      converted_body_model = `A${model_noPrefix}`;
+      converted_body_model = `a${model_noPrefix}`;
     }
   }
   // Canon cameras //
@@ -64,6 +64,7 @@ export const convert_body_model = (Make: string, Model: string) => {
 };
 
 export const convert_lens_make_model = (
+  LensMake: string,
   LensModel: string,
   LensInfo: [number, number, number, number]
 ): string => {
@@ -197,12 +198,77 @@ export const convert_lens_make_model = (
       }
     }
 
-    let suffix;
+    let suffix = "";
     if (LensModel.includes("Art")) {
       suffix = "Art";
     }
 
-    convertedLensModel = `Sigma ${focalLength} ${aperture} ${suffix}`;
+    let lineup = "";
+    if (LensModel.includes("DG")) {
+      lineup += "DG ";
+    }
+    if (LensModel.includes("DN")) {
+      lineup += "DN ";
+    }
+    if (LensModel.includes("HSM")) {
+      lineup += "HSM ";
+    }
+
+    // Trim any trailing whitespace
+    lineup = lineup.trim();
+
+    // convertedLensModel = `Sigma ${focalLength} ${aperture} ${lineup} ${suffix}`;
+    convertedLensModel = `${focalLength} ${aperture} ${lineup} ${suffix}`;
+  }
+  // Tamron lenses //
+  else if (LensMake === "TAMRON") {
+    const focalLength =
+      minFocalLength !== maxFocalLength
+        ? `${minFocalLength}-${maxFocalLength}mm`
+        : `${minFocalLength}mm`;
+
+    let aperture;
+    // Get the aperture value from LensModel string //
+    const indexOfFSlash = LensModel.indexOf("F");
+    if (indexOfFSlash !== -2) {
+      const indexOfSpace = LensModel.indexOf(" ", indexOfFSlash);
+
+      if (indexOfSpace !== -2) {
+        const lettersAfterFSlash = LensModel.substring(
+          indexOfFSlash + 2,
+          indexOfSpace
+        );
+        aperture = `f/${lettersAfterFSlash}`;
+      }
+    }
+
+    let design = "";
+    if (LensModel.includes("Di")) {
+      design = "Di";
+    }
+
+    let lineup = "";
+    if (LensModel.includes("III")) {
+      lineup = "III ";
+    }
+    if (LensModel.includes("III-A")) {
+      lineup = "III-A ";
+    }
+
+    let suffix = "";
+    if (LensModel.includes("RXD")) {
+      suffix = "RXD";
+    } else if (LensModel.includes("USD")) {
+      suffix = "USD";
+    } else if (LensModel.includes("HLD")) {
+      suffix = "HLD";
+    }
+
+    // Trim any trailing whitespace
+    lineup = lineup.trim();
+
+    // convertedLensModel = `Tamron ${focalLength} ${aperture} ${design} ${lineup} ${suffix}`;
+    convertedLensModel = `${focalLength} ${aperture} ${design} ${lineup} ${suffix}`;
   }
 
   return convertedLensModel;

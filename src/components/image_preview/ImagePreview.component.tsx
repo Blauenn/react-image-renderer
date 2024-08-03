@@ -36,7 +36,7 @@ const ImagePreview = (props: CurrentComponentProp) => {
 									: imageDimensions[0] / imageDimensions[1] > 4 / 3 ? "w-[2600px] h-auto"
 										: "w-auto h-full"
 								} shadow-md ${photographer_shadow_style}`} />
-								{/* Drop shadows are some how invisible in the render | FIX IT bro */}
+						{/* Drop shadows are some how invisible in the render | FIX IT bro */}
 					</div>
 					{/* Texts */}
 					<div className="absolute top-0 left-0 flex flex-col justify-between h-full">
@@ -56,7 +56,7 @@ const ImagePreview = (props: CurrentComponentProp) => {
 						<div className="flex flex-col gap-24">
 							{/* Camera information */}
 							<div className="flex flex-col gap-4">
-								<h1 className="text-[56px] font-bold">{cameraInformation.body_make} {cameraInformation.body_model}</h1>
+								<h1 className="font-alternates text-[56px] font-bold">{cameraInformation.body_make} {cameraInformation.body_model}</h1>
 								<ImagePreview_lens lens_make_model={cameraInformation.lens_make_model} lens_highlight={otherInfo.lens_highlight} />
 							</div>
 							{/* Camera settings */}

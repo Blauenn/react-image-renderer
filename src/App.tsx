@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 // Components //
 import ImagePreview from "./components/image_preview/ImagePreview.component";
 import SidePreview_AlbumInfo from "./components/side_preview/SidePreview_AlbumInfo.component";
@@ -15,6 +15,7 @@ const App = () => {
 
 	const [imageSource, setImageSource] = useState<string>("");
 	const [imageName, setImageName] = useState<string>("Please select a file...");
+	const [imageDescription, setImageDescription] = useState<string>("");
 	const [imageDimensions, setImageDimensions] = useState<[number, number]>([0, 0]);
 
 	const [cameraInformation, setCameraInformation] = useState<CameraInformation>({
@@ -48,6 +49,13 @@ const App = () => {
 		high_quality: false,
 	});
 
+	useEffect(() => {
+		setContactInfo((prevContactInfo) => ({
+			...prevContactInfo,
+			facebook: imageDescription,
+		}));
+	}, [imageDescription]);
+
 	return (
 		<div className="m-8">
 			<div className="flex flex-row gap-16">
@@ -58,7 +66,7 @@ const App = () => {
 							<input
 								type="file"
 								accept="image/*"
-								onChange={(event) => image_select(event, setImageName, setImageDimensions, setImageSource, setCameraInformation, setCameraSettings, setAlbumInfo)}
+								onChange={(event) => image_select(event, setImageName, setImageDescription, setImageDimensions, setImageSource, setCameraInformation, setCameraSettings, setAlbumInfo)}
 								style={{ display: "none" }}
 								id="fileInput"
 							/>

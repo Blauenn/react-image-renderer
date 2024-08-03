@@ -8,25 +8,25 @@ const ImagePreview_lens = (props: CurrentComponentProp) => {
 
 	if (lens_highlight && lens_make_model.endsWith(" G Master")) {
 		return (
-			<h1 className="text-[56px] font-bold text-[#cf4019]">
+			<h1 className="font-alternates text-[56px] font-bold text-[#cf4019]">
 				{lens_make_model}
 			</h1>
 		);
 	} else if (lens_highlight && lens_make_model.startsWith("Zeiss ")) {
 		return (
-			<h1 className="text-[56px] font-bold text-[#141E8C]">
+			<h1 className="font-alternates text-[56px] font-bold text-[#141E8C]">
 				{lens_make_model}
 			</h1>
 		);
 	} else if (lens_highlight && lens_make_model.endsWith(" S")) {
 		return (
-			<h1 className="text-[56px] font-bold text-[#FFE100] drop-shadow-sm">
+			<h1 className="font-alternates text-[56px] font-bold text-[#FFE100] drop-shadow-sm">
 				{lens_make_model}
 			</h1>
 		);
 	} else {
 		return (
-			<h1 className="text-[56px] font-bold">
+			<h1 className="font-alternates text-[56px] font-bold">
 				{lens_make_model}
 			</h1>
 		);

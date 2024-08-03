@@ -3,6 +3,7 @@ import { exif_parse } from "./function_exifParse";
 export const image_select = (
   event: React.ChangeEvent<HTMLInputElement>,
   setImageName: React.Dispatch<React.SetStateAction<string>>,
+  setImageDescription: React.Dispatch<React.SetStateAction<string>>,
   setImageDimensions: React.Dispatch<React.SetStateAction<[number, number]>>,
   setImageSource: React.Dispatch<React.SetStateAction<string>>,
   setCameraInformation: React.Dispatch<React.SetStateAction<CameraInformation>>,
@@ -17,7 +18,7 @@ export const image_select = (
   const imageName = file.name;
   setImageName(imageName);
 
-  exif_parse(file, setCameraInformation, setCameraSettings, setAlbumInfo);
+  exif_parse(file, setImageDescription, setCameraInformation, setCameraSettings, setAlbumInfo);
 
   const reader = new FileReader();
 

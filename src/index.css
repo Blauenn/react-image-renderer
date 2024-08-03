@@ -1,21 +1,19 @@
 /* Font - Montserrat, M Plus 1 p, Nanum Gothic */
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nanum+Gothic&display=swap');
-
-/* Font - Sukhumvit */
-@font-face {
-	font-family: "Sukhumvit";
-	src: local("Sukhumvit"), url("./fonts/Sukhumvit/SukhumvitSet-SemiBold.ttf") format("truetype");
-	font-weight: normal
-}
+@import url('https://fonts.googleapis.com/css2?family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.font-alternates {
+	font-family: "Montserrat Alternates";
+}
+
 :root {
 	background: #f1f5f9;
 
-	font-family: "Montserrat", "Sukhumvit", "M Plus 1p", "Nanum Gothic", system-ui;
+	font-family: "Montserrat", "Krub", "M Plus 1p", "Nanum Gothic", system-ui;
 	line-height: 1.5;
 
 	font-synthesis: none;
@@ -28,4 +26,10 @@
 .wall-background {
 	background: rgba(255, 255, 255, 0.5) url("/assets/previews/background.jpg");
 	background-position: center;
+}
+
+.rainbow-text {
+	background-clip: text;
+	-webkit-background-clip: text;
+	color: transparent;
 }
