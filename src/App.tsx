@@ -40,7 +40,14 @@ const App = () => {
 	});
 	const [albumInfo, setAlbumInfo] = useState<AlbumInfo>({
 		name: "",
-		date: ""
+		date: {
+			day: "",
+			month: "",
+			year: "",
+			hours: "",
+			minutes: "",
+			seconds: "",
+		}
 	});
 	const [otherInfo, setOtherInfo] = useState<OtherInfo>({
 		file_name: "",

@@ -11,12 +11,20 @@ interface CurrentComponentProp {
 const SidePreview_AlbumInfo = (props: CurrentComponentProp) => {
 	const { albumInfo, setAlbumInfo } = props;
 
+	const { date } = albumInfo;
+
 	return (
 		<div className={`${section_styles} gap-4`}>
 			{/* Date */}
-			<div className="flex flex-col gap-1">
-				<h1 className="text-md">Date taken</h1>
-				<h1 className="text-2xl font-semibold">{albumInfo.date}</h1>
+			<div className="flex flex-row gap-4">
+				<div className="flex flex-col gap-1">
+					<h1 className="text-md">Date taken</h1>
+					<h1 className="text-2xl font-semibold">{date.day}.{date.month}.{date.year}</h1>
+				</div>
+				<div className="flex flex-col gap-1">
+					<h1 className="text-md">Time taken</h1>
+					<h1 className="text-2xl font-semibold">{date.hours}:{date.minutes}:{date.seconds}</h1>
+				</div>
 			</div>
 			{/* Album name */}
 			<div className="flex flex-col gap-2">

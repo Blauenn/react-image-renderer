@@ -23,7 +23,14 @@ interface ContactInfo {
 
 interface AlbumInfo {
   name: string;
-  date: string;
+  date: {
+		day: string,
+		month: string,
+		year: string,
+		hours: string,
+		minutes: string
+		seconds: string
+	}
 }
 
 interface OtherInfo {

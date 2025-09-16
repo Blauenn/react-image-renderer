@@ -2,6 +2,8 @@ import { useEffect } from "react";
 // Constants //
 import { photographers_to_shadow_color, photographers_to_text_color } from "../../constants/styles/colors/constant_photographerColors";
 import ImagePreview_lens from "./ImagePreview_lens.component";
+import { MonthList } from "../../constants/constant_dates";
+import { day_ordinals } from "../../functions/function_numbers";
 
 interface CurrentComponentProp {
 	isPreview?: boolean;
@@ -16,6 +18,8 @@ interface CurrentComponentProp {
 
 const ImagePreview = (props: CurrentComponentProp) => {
 	const { isPreview, imageSource, imageDimensions, cameraInformation, cameraSettings, contactInfo, albumInfo, otherInfo } = props;
+
+	const { date } = albumInfo;
 
 	useEffect(() => {
 	}, [imageDimensions, cameraInformation]);
@@ -60,7 +64,7 @@ const ImagePreview = (props: CurrentComponentProp) => {
 								<ImagePreview_lens lens_make_model={cameraInformation.lens_make_model} lens_highlight={otherInfo.lens_highlight} />
 							</div>
 							{/* Camera settings */}
-							<div className="flex flex-col gap-4 opacity-50">
+							<div className="flex flex-col gap-8 opacity-50">
 								<h1 className="text-[60px] font-semibold">ISO {cameraSettings.ISO}</h1>
 								<h1 className="text-[60px] font-semibold">{cameraSettings.shutter_speed}s</h1>
 								<h1 className="text-[60px] font-semibold">f/{cameraSettings.aperture}</h1>
@@ -104,7 +108,8 @@ const ImagePreview = (props: CurrentComponentProp) => {
 						</div>
 						{/* Footer */}
 						<div className="flex flex-col gap-4 opacity-50">
-							<h1 className="text-[40px]">{albumInfo.date}</h1>
+							{/* <h1 className="text-[40px]">{date.day}{day_ordinals(date.day)} of {MonthList[parseInt(date.month) - 1]} {date.year} at {date.hours}:{date.minutes}</h1> */}
+							<h1 className="text-[40px]">{date.day}.{date.month}.{date.year} at {date.hours}:{date.minutes}</h1>
 							<h1 className="text-[40px]">{albumInfo.name != "" ? albumInfo.name : "[NO ALBUM NAME]"}</h1>
 						</div>
 					</div>

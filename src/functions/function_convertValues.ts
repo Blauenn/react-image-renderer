@@ -207,6 +207,9 @@ export const convert_lens_make_model = (
     if (LensModel.includes("DG")) {
       lineup += "DG ";
     }
+    if (LensModel.includes("DC")) {
+      lineup += "DC ";
+    }
     if (LensModel.includes("DN")) {
       lineup += "DN ";
     }
@@ -217,8 +220,8 @@ export const convert_lens_make_model = (
     // Trim any trailing whitespace
     lineup = lineup.trim();
 
-    // convertedLensModel = `Sigma ${focalLength} ${aperture} ${lineup} ${suffix}`;
-    convertedLensModel = `${focalLength} ${aperture} ${lineup} ${suffix}`;
+    convertedLensModel = `Sigma ${focalLength} ${aperture} ${lineup} ${suffix}`;
+    // convertedLensModel = `${focalLength} ${aperture} ${lineup} ${suffix}`;
   }
   // Tamron lenses //
   else if (LensMake === "TAMRON") {
@@ -293,8 +296,20 @@ export const convert_date = (DateTimeOriginal: Date) => {
   const day = DateTimeOriginal.getDate().toString().padStart(2, "0");
   const month = (DateTimeOriginal.getMonth() + 1).toString().padStart(2, "0"); // Month is zero-indexed, so add 1
   const year = DateTimeOriginal.getFullYear();
+  const hours = DateTimeOriginal.getHours();
+  const minutes = DateTimeOriginal.getMinutes();
+  const seconds = DateTimeOriginal.getSeconds();
 
-  return `${day}.${month}.${year}`;
+  const datetime = {
+    day: day.toString().padStart(2, "0"),
+    month: month.toString().padStart(2, "0"),
+    year: year.toString(),
+    hours: hours.toString().padStart(2, "0"),
+    minutes: minutes.toString().padStart(2, "0"),
+    seconds: seconds.toString().padStart(2, "0"),
+  };
+
+  return datetime;
 };
 
 // Check if the lens is a zoom or not //

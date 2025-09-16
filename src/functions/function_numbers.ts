@@ -1,4 +1,4 @@
-export const convert_to_roman = (num: number): string => {
+export const convert_to_roman = (number: number): string => {
   const romanNumerals: [number, string][] = [
     [1000, "M"],
     [900, "CM"],
@@ -17,10 +17,26 @@ export const convert_to_roman = (num: number): string => {
 
   let result = "";
   for (const [value, roman] of romanNumerals) {
-    while (num >= value) {
+    while (number >= value) {
       result += roman;
-      num -= value;
+      number -= value;
     }
   }
   return result;
+};
+
+export const day_ordinals = (number: string) => {
+  let ordinal: string = "";
+
+  if (number == "1" || number == "21" || number == "31") {
+    ordinal = "st";
+  } else if (number == "2" || number == "22") {
+    ordinal = "nd";
+  } else if (number == "3" || number == "23") {
+    ordinal = "rd";
+  } else {
+    ordinal = "th";
+  }
+
+  return ordinal;
 };
